@@ -14,22 +14,29 @@ import {
 import { RouterModule }  from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-export function createComponentFactory(compiler: Compiler, metadata: Component): Promise<ComponentFactory<any>> {
-    const cmpClass = class DynamicTemplateComponent {};
-    const decoratedCmp = Component(metadata)(cmpClass);
+export function createComponentFactory(compiler: Compiler, metadata: Component, vm: any): Promise<ComponentFactory<any>> {
+  const cmpClass = class DynamicTemplateComponent {
+    ngOnInit() {
+      for (let k in vm) {
+        this[k] = vm[k]
+      }
+    }
+  };
+  const decoratedCmp = Component(metadata)(cmpClass);
 
-    @NgModule({ imports: [CommonModule, RouterModule], declarations: [decoratedCmp] })
-    class DynamicHtmlModule { }
+  @NgModule({ imports: [CommonModule, RouterModule], declarations: [decoratedCmp] })
+  class DynamicHtmlModule { }
 
-    return compiler.compileModuleAndAllComponentsAsync(DynamicHtmlModule)
-       .then((moduleWithComponentFactory: ModuleWithComponentFactories<any>) => {
-        return moduleWithComponentFactory.componentFactories.find(x => x.componentType === decoratedCmp);
-      });
+  return compiler.compileModuleAndAllComponentsAsync(DynamicHtmlModule)
+    .then((moduleWithComponentFactory: ModuleWithComponentFactories<any>) => {
+      return moduleWithComponentFactory.componentFactories.find(x => x.componentType === decoratedCmp);
+    });
 }
 
 @Directive({ selector: 'dynamic-tpl' })
 export class DynamicTemplateComponent {
   @Input() html: string;
+  @Input() vm: any;
   cmpRef: ComponentRef<any>;
 
   constructor(private vcRef: ViewContainerRef, private compiler: Compiler) { }
@@ -43,11 +50,11 @@ export class DynamicTemplateComponent {
     }
 
     const compMetadata = new Component({
-        selector: 'dynamic-tpl',
-        template: this.html,
+      selector: 'dynamic-tpl',
+      template: this.html,
     });
 
-    createComponentFactory(this.compiler, compMetadata)
+    createComponentFactory(this.compiler, compMetadata, this.vm)
       .then(factory => {
         const injector = ReflectiveInjector.fromResolvedProviders([], this.vcRef.parentInjector);
         this.cmpRef = this.vcRef.createComponent(factory, 0, injector, []);

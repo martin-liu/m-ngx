@@ -6,7 +6,7 @@ declare var require:any;
 @Component({
   selector: 'dynamic-modal',
   template: `
-11111<dynamic-tpl [html]="_tpl"></dynamic-tpl>
+     <dynamic-tpl [html]="_tpl" [vm]="vm"></dynamic-tpl>
 `,
   providers: [NgbActiveModal]
 })
@@ -30,16 +30,15 @@ export class ModalService {
 
   constructor(private modalService: NgbModal){}
 
-  createDialog(template, scope, thenFunc, options = {}) {
-    Reflect['getMetadata']('annotations', DynamicModalComponent)[0].template = template;
+  createDialog(template, scope: any = {}, options = {}) {
     const modalRef = this.modalService.open(DynamicModalComponent);
+    scope.close = (v) => modalRef.close(v);
     modalRef.componentInstance.vm = scope;
     modalRef.componentInstance._tpl = template;
-    modalRef.result.then(thenFunc);
-    return modalRef;
+    return modalRef.result;
   }
 
-  alert(message, type, thenFunc?) {
+  alert(message, type) {
     let mclass, scope;
     mclass = (function() {
       switch (type) {
@@ -56,24 +55,24 @@ export class ModalService {
       type: type,
       "class": mclass
     };
-    return this.createDialog(this.alertTpl, scope, thenFunc);
+    return this.createDialog(this.alertTpl, scope);
   }
 
-  success(message, thenFunc?) {
-    return this.alert(message, 'success', thenFunc);
+  success(message) {
+    return this.alert(message, 'success');
   }
 
-  fail(message, thenFunc?) {
-    return this.alert(message, 'fail', thenFunc);
+  fail(message) {
+    return this.alert(message, 'fail');
   }
 
-  confirm(message, thenFunc?) {
-    return this.alert(message, 'confirm', thenFunc);
+  confirm(message) {
+    return this.alert(message, 'confirm');
   }
 
   error(message) {
     let tplErrorHandler;
-    tplErrorHandler = 'partials/modal/error_handler.html';
+    tplErrorHandler = require('../partials/error_handler.html');
     return this.createDialog(tplErrorHandler, {
       message: message
     }, function() {});

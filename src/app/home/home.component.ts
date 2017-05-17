@@ -2,16 +2,16 @@ import { Component } from '@angular/core';
 import { Title }     from '@angular/platform-browser';
 import * as echarts from 'echarts';
 import { Config }    from '../app.config';
+import { ModalService } from '../../common/services/modal.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  providers: [Title]
+  providers: [Title, ModalService]
 })
 export class HomeComponent {
-  public constructor(private titleService: Title) {
-    titleService.setTitle(Config.title);
+  public constructor(private modalService: ModalService) {
   }
 
   chartOption = this.getSampleChartOption();
@@ -19,6 +19,19 @@ export class HomeComponent {
 
   ngOnInit() {
     setTimeout(() => this.chartLoaded = true, 1500)
+  }
+
+  modalSuccess() {
+    this.modalService.success('It works!');
+  }
+
+  modalFail() {
+    this.modalService.fail('There must be something wrong!')
+  }
+
+  modalConfirm() {
+    this.modalService.confirm('Are you a human?')
+      .then((v) => alert(`You chose ${ v ? 'true' : 'false' }`))
   }
 
   getSampleChartOption() {
