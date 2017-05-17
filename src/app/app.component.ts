@@ -1,10 +1,17 @@
 import { Component } from '@angular/core';
+import { Title }     from '@angular/platform-browser';
+import * as echarts  from 'echarts';
+import { Config }    from './app.config';
+import { ModalService }      from '../common/services/modal.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: `<router-outlet></router-outlet>`,
+  providers: [Title, ModalService]
 })
 export class AppComponent {
-  title = 'app works!';
+  public constructor(private titleService: Title, private modalService: ModalService) {
+    titleService.setTitle(Config.title);
+    modalService.fail('haha')
+  }
 }

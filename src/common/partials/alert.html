@@ -1,0 +1,20 @@
+<div>
+    <div class="modal-header" style="padding: 0 15px">
+        <h4 *ngIf="type == 'success'">Success!</h4>
+        <h4 *ngIf="type == 'fail'">Fail!</h4>
+        <h4 *ngIf="type == 'confirm'">Confirm</h4>
+    </div>
+    {{type}}
+    <div class="modal-body">
+        <p class="alert {{class}}" ng-bind-html="message"></p>
+    </div>
+    <div class="modal-footer" style="padding: 5px 20px">
+      <div *ngIf="type == 'confirm'">
+        <button ng-click="close(true)" class="btn btn-primary" >Yes</button>
+        <button ng-click="close(false)" class="btn btn-primary" >No</button>
+      </div>
+      <div *ngIf="type != 'confirm'">
+        <button ng-click="close()" class="btn btn-primary" >Close</button>
+      </div>
+    </div>
+</div>
