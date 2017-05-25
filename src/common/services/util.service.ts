@@ -3,7 +3,7 @@ import { Cache } from './cache.service';
 import * as _ from 'lodash';
 import { DomService } from './dom.service';
 
-class UtilService {
+export const Util = new class UtilService {
   dom:any;
 
   constructor() {
@@ -210,5 +210,3 @@ class UtilService {
     };
   }
 }
-
-export const Util = new UtilService();

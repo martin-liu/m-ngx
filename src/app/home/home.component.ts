@@ -1,24 +1,42 @@
-import { Component } from '@angular/core';
-import { Title }     from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
 import * as echarts from 'echarts';
 import { Config }    from '../app.config';
 import { ModalService } from '../../common/services/modal.service';
+import { BasePageComponent } from '../../common/base.page.component';
+import { TestRemoteService } from '../services/remote/test.remote.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  providers: [Title, ModalService]
+  providers: [ModalService, TestRemoteService]
 })
-export class HomeComponent {
-  public constructor(private modalService: ModalService) {
+export class HomeComponent extends BasePageComponent {
+  public constructor(private modalService: ModalService, private TestRemoteService: TestRemoteService) {
+    super()
   }
 
   chartOption = this.getSampleChartOption();
   chartLoaded = false;
 
-  ngOnInit() {
+  // initialize before page render
+  initialize() {
+    return new Promise(rs => setTimeout(rs, 1000))
+  }
+
+  // bind view after page initialized
+  bindView() {
     setTimeout(() => this.chartLoaded = true, 1500)
+
+    // `ss.persistence` will auto save to localStorage
+    this.ss.persistence.test = {a: 1};
+    // `ss.session` will auto save to sessionStorage
+    this.ss.session.test = "haha";
+
+
+    // test ajax call
+    this.TestRemoteService.testMethod({a:"test"})
+      .subscribe(console.log, (e) => console.error("This ajax call fail because it's just for testing, see error info:", e));
   }
 
   modalSuccess() {

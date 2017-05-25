@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Restangular } from 'ngx-restangular';
 import { Config } from '../app/app.config';
+import { Util } from './services/util.service';
 
 @Injectable()
 export class BaseRemoteService {
+  protected rest: Restangular;
 
-  constructor(protected rest: Restangular, protected Util){
+  constructor(private restangular: Restangular){
+    this.rest = this.getRest(restangular);
   }
 
   protected getRest(Restangular){
@@ -23,7 +26,7 @@ export class BaseRemoteService {
 
   // Session cache
   getWithCache(method, param, func, timeout = 300) {
-    return this.Util.getWithCache(this.getCacheKey(method, param), true, func, timeout);
+    return Util.getWithCache(this.getCacheKey(method, param), true, func, timeout);
   }
 
   doQuery(method, param, canceler?) {

@@ -12,9 +12,13 @@ import { RestangularModule } from 'ngx-restangular';
 import { MComponentsModule } from '../common/components/components.module';
 
 import { Config } from './app.config';
+import { AppInitService } from '../common/services/app.init.service';
+import { SharedService } from '../common/services/shared.service';
 import { DynamicModalComponent } from '../common/services/modal.service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
+import { NotFoundComponent } from './notfound/notfound.component';
 
 export function RestangularConfigFactory (RestangularProvider) {
   RestangularProvider.setBaseUrl(Config.uri.api);
@@ -25,6 +29,8 @@ export function RestangularConfigFactory (RestangularProvider) {
     DynamicModalComponent,
     AppComponent,
     HomeComponent,
+    AboutComponent,
+    NotFoundComponent
   ],
   // for dynamic create
   entryComponents: [
@@ -49,6 +55,8 @@ export function RestangularConfigFactory (RestangularProvider) {
 
   ],
   providers: [
+    AppInitService,
+    SharedService
   ],
   bootstrap: [AppComponent]
 })

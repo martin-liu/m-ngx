@@ -35,7 +35,10 @@ export class ModalService {
     scope.close = (v) => modalRef.close(v);
     modalRef.componentInstance.vm = scope;
     modalRef.componentInstance._tpl = template;
-    return modalRef.result;
+    return new Promise((rs, rj) => {
+      modalRef.result.then(rs)
+        .catch(() => {});
+    });
   }
 
   alert(message, type) {

@@ -22,11 +22,24 @@ export const Config = {
   },
 
   intro: {
-    enabled: false
+    enabled: true
   },
 
-  PFSSO: {
-    enabled: true
+  SSO: {
+    enabled: true,
+    type: 'PFSSO',               // read user info from header
+    //type: 'cookie',             // read user info from cookie
+
+    // cookie will still be a fall back of PFSSO when type is `PFSSO`
+    cookieKeys: ['ihub-user'],   // cookies will read
+    cookieTransform: (values) => {
+      if (values[0]) {
+        let objs = JSON.parse(decodeURIComponent(values[0]));
+        let user = objs.reduce((a, d) => Object.assign(a, d));
+        return user;
+      }
+      return null;
+    }
   },
 
   urlHtml5Mode: true,
