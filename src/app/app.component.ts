@@ -11,6 +11,7 @@ import { SharedService } from '../common/services/shared.service';
 @Component({
   selector: 'app-root',
   template: `
+<m-header [mailto]="'#'" [wiki]="'#'"></m-header>
 <div [ngStyle]="{'opacity': ss.pageInitialized ? 1 : 0}">
   <router-outlet></router-outlet>
 </div>
@@ -23,6 +24,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    // get current router and set to shared service
     this.router.events
       .filter(event => event instanceof NavigationEnd)
       .map(() => {

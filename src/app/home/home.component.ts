@@ -21,7 +21,7 @@ export class HomeComponent extends BasePageComponent {
 
   // initialize before page render
   initialize() {
-    return new Promise(rs => setTimeout(rs, 1000))
+    return new Promise(rs => setTimeout(rs, 100))
   }
 
   // bind view after page initialized

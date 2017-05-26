@@ -19,6 +19,10 @@ export class BasePageComponent {
       appInit.done()
         .then(() => this.pageInit(this.ss))
         .then(() => this.bindView());
+
+      if (!Config.production) {
+        window['vm'] = this;
+      }
     });
   }
 

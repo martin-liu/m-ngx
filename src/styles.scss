@@ -14,17 +14,6 @@
   margin: 10px 15px;
 }
 
-.fullscreenStatic {
-  overflow: hidden;
-  .static {
-    position: static !important;
-
-    * {
-      position: static !important;
-    }
-  }
-}
-
 .fullscreen {
   background-color: #ffffff;
   position: absolute !important;
@@ -143,7 +132,7 @@ body {
 }
 
 
-// Utils
+// START: Utils
 // need set parent's position to `relative`
 .vertical-center {
   position:absolute;
@@ -165,6 +154,15 @@ body {
   align-items: center;
   justify-content: left;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+  cursor: hand;
+}
+
+// END: Utils
+
+
 
 .echarts {
   height: 400px;
