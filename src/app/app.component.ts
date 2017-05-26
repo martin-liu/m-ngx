@@ -12,7 +12,7 @@ import { SharedService } from '../common/services/shared.service';
   selector: 'app-root',
   template: `
 <m-header [mailto]="'#'" [wiki]="'#'"></m-header>
-<div [ngStyle]="{'opacity': ss.pageInitialized ? 1 : 0}">
+<div class="app" [ngStyle]="{'opacity': ss.pageInitialized ? 1 : 0}">
   <router-outlet></router-outlet>
 </div>
 `,

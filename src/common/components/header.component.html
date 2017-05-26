@@ -1,4 +1,4 @@
-<div intro-step="2" style="height:45px"
+<div intro-step="2"
      class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
   <a class="navbar-brand" style="color:#fff" href="">
     {{Config.title}}
@@ -14,17 +14,17 @@
     </ul>
   </div>
   <div class="nav nav-pills pull-right" style="margin-right:20px">
-    <li>
-      <a style="color: #999" [href]="mailto">
+    <li class="nav-item">
+      <a class="nav-link" style="color: #999" [href]="mailto">
         <i class="fa fa-envelope"></i></a>
     </li>
-    <li>
-      <a style="color: #999" [href]="wiki" target="_blank">
+    <li class="nav-item">
+      <a class="nav-link" style="color: #999" [href]="wiki" target="_blank">
         <i class="fa fa-question-circle"></i>
       </a>
     </li>
-    <li *ngIf="Config.intro.enabled">
-      <a style="color: #999" href="" target="_blank" (click)="ss.intro.startIntro()">
+    <li *ngIf="Config.intro.enabled" class="nav-item">
+      <a class="nav-link cursor-pointer" style="color: #999" (click)="ss.intro.start()">
         Tour
       </a>
     </li>
