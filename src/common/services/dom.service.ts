@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 export class DomService {
   static siblings(el) {
     return [].filter.call(el.parentNode.children, function(child) {
@@ -178,5 +180,35 @@ export class DomService {
         }
       }
     };
+  }
+
+  static isFullscreen() {
+    let checks = ['fullScreenElement', 'msFullscreenElement', 'mozFullScreen', 'webkitIsFullScreen'];
+
+    return _.some(checks, d => document[d]);
+  }
+
+  static enterFullscreen(el) {
+    let funcs = ['requestFullscreen', 'mozRequestFullScreen', 'msRequestFullscreen', 'webkitRequestFullScreen'];
+    let func = _.find(funcs, f => el[f]);
+    if (func) {
+      el[func]();
+    }
+  }
+
+  static exitFullscreen() {
+    let funcs = ['exitFullscreen', 'webkitExitFullscreen', 'mozCancelFullScreen', 'msExitFullscreen'];
+    let func = _.find(funcs, f => document[f]);
+    if (func) {
+      document[func]();
+    }
+  }
+
+  static toggleFullscreen(el) {
+    if (DomService.isFullscreen()) {
+      DomService.exitFullscreen();
+    } else {
+      DomService.enterFullscreen(el);
+    }
   }
 }

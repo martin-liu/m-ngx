@@ -1,4 +1,5 @@
 <div class="container-fluid col-md-10 col-offset-md-1">
+  <p> This ugly page is just for some showcases... </p>
   <p>Integrated <a target="_blank" href="https://angular.io/">AngularX</a>, <a target="_blank" href="https://v4-alpha.getbootstrap.com/getting-started/introduction/">Bootstrap4</a>, <a target="_blank" href="http://fontawesome.io/icons/">font-awesome</a>, <a target="_blank" href="https://lodash.com/docs">lodash</a>, <a target="_blank" href="https://ecomfe.github.io/echarts-doc/public/en/index.html">echarts</a>, <a target="_blank" href="https://ng-bootstrap.github.io/">ng-bootstrap</a> and other libraries, also provide some utilites and shared components, below are some examples:</p>
 
   <h3>Common components:</h3>
@@ -6,6 +7,13 @@
     <li>
       <h4>Loading</h4>
       <m-loading [text]="'loading'"></m-loading>
+    </li>
+    <li>
+      <h4>Fullscreen</h4>
+      <div m-fullscreen style="border: solid 1px; background-color: #fff; width: 300px; height: 200px;">
+        <i class="fa fa-arrows-alt pull-right" style="margin: 5px;" m-fullscreen-trigger></i>
+        <p>a test container</p>
+      </div>
     </li>
     <li>
       <h4>Modal</h4>
@@ -18,7 +26,10 @@
         <a href="https://ecomfe.github.io/echarts-doc/public/en/index.html">echarts</a>
       </h4>
       <p>A sample chart:</p>
-      <div echarts [options]="chartOption" [loading]="!chartLoaded" class="echarts col-sm-10 offset-sm-1"></div>
+      <div m-fullscreen echarts [options]="chartOption" [loading]="!chartLoaded" class="echarts col-sm-10 offset-sm-1">
+      </div>
+        <i class="fa fa-arrows-alt pull-right" style="margin: 5px;" m-fullscreen-trigger></i>
+
     </li>
   </ul>
 

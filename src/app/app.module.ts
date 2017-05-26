@@ -10,6 +10,7 @@ import { AngularEchartsModule } from 'angular2-echarts';
 import { RestangularModule } from 'ngx-restangular';
 
 import { MComponentsModule } from '../common/components/components.module';
+import { MDirectivesModule } from '../common/directives/directives.module';
 
 import { Config } from './app.config';
 import { AppInitService } from '../common/services/app.init.service';
@@ -50,8 +51,9 @@ export function RestangularConfigFactory (RestangularProvider) {
     // ngx-restangular
     RestangularModule.forRoot(),
 
-    // m components
-    MComponentsModule
+    // m modules
+    MComponentsModule,
+    MDirectivesModule
 
   ],
   providers: [
