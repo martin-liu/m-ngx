@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularEchartsModule } from 'angular2-echarts';
 import { RestangularModule } from 'ngx-restangular';
+import { DragulaModule } from 'ng2-dragula';
 
 import { MComponentsModule } from '../common/components/components.module';
 import { MDirectivesModule } from '../common/directives/directives.module';
@@ -50,6 +51,9 @@ export function RestangularConfigFactory (RestangularProvider) {
     AngularEchartsModule,
     // ngx-restangular
     RestangularModule.forRoot(),
+
+    // dragula
+    DragulaModule,
 
     // m modules
     MComponentsModule,

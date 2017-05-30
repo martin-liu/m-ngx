@@ -22,7 +22,24 @@
     </li>
     <li>
       <h4>
-        <a href="https://ecomfe.github.io/echarts-doc/public/en/index.html">echarts</a>
+        <a target="_blank" href="https://github.com/valor-software/ng2-dragula">Dragular</a>
+      </h4>
+      <ul [dragula]='"bag1"'>
+        <li>As soon as you start dragging an element, a <code>drag</code> event is fired</li>
+        <li>The <code>shadow</code> event fires whenever the placeholder showing where an element would be dropped is moved to a different container or position</li>
+        <li>A <code>drop</code> event is fired whenever an element is dropped anywhere other than its origin <em>(where it was initially dragged from)</em></li>
+        <li class="">A <code>cancel</code> event is fired when an element would be dropped onto an invalid target, but retains its original placement instead</li>
+      </ul>
+      <hr/>
+      <ul [dragula]='"bag2"'>
+        <li>If the element gets removed from the DOM as a result of dropping outside of any containers, a <code>remove</code> event gets fired</li>
+        <li class="">Whenever an element is cloned because <code>copy: true</code>, a <code>cloned</code> event fires</li><div>The <code>over</code> event fires when you drag something over a container, and <code>out</code> fires when you drag it away from the container</div>
+        <li>Lastly, a <code>dragend</code> event is fired whenever a drag operation ends, regardless of whether it ends in a cancellation, removal, or drop</li>
+      </ul>
+    </li>
+    <li>
+      <h4>
+        <a target="_blank" href="https://ecomfe.github.io/echarts-doc/public/en/index.html">echarts</a>
       </h4>
       <p>A sample chart:</p>
       <div echarts [options]="chartOption" [loading]="!chartLoaded" class="echarts col-sm-10 offset-sm-1"></div>
