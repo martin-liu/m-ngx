@@ -50,7 +50,7 @@ export function RestangularConfigFactory (RestangularProvider) {
     // echarts
     AngularEchartsModule,
     // ngx-restangular
-    RestangularModule.forRoot(),
+    RestangularModule.forRoot(RestangularConfigFactory),
 
     // dragula
     DragulaModule,
