@@ -7,8 +7,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build-dev": "ng build",
-    "build-prod": "ng build -prod",
+    "build-dev": "ng build && gulp build",
+    "build-prod": "ng build -prod && gulp build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
