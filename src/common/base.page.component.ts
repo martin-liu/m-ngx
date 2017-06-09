@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Config } from '../app/app.config';
 import { NProgressService } from './services/nprogress.service';
-import * as Util from './services/util.service';
+import { Util } from './services/util.service';
 import { AppInitService } from './services/app.init.service';
 import { SharedService } from './services/shared.service';
 import { PiwikService } from './services/piwik.service';
