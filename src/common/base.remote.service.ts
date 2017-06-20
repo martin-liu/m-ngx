@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Restangular } from 'ngx-restangular';
 import { Config } from '../app/app.config';
 import { Util } from './services/util.service';
@@ -50,8 +51,8 @@ export class BaseRemoteService {
   }
 
   mockResult(data, time = 1000){
-    return new Promise((rs, rj) => {
+    return Observable.fromPromise(new Promise((rs, rj) => {
       setTimeout(() => rs(data), time);
-    });
+    }));
   }
 }
