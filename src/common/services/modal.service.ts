@@ -31,8 +31,9 @@ export class ModalService {
   constructor(private modalService: NgbModal){}
 
   createDialog(template, scope: any = {}, options = {}) {
-    const modalRef = this.modalService.open(DynamicModalComponent);
+    const modalRef = this.modalService.open(DynamicModalComponent, options);
     scope.close = (v) => modalRef.close(v);
+    scope.dismiss = (v) => modalRef.dismiss(v);
     modalRef.componentInstance.vm = scope;
     modalRef.componentInstance._tpl = template;
     return new Promise((rs, rj) => {
