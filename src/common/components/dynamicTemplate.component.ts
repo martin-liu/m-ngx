@@ -13,6 +13,7 @@ import {
 
 import { RouterModule }  from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MComponentsModule } from './components.module';
 import { AppModule } from '../../app/app.module';
 
 export function createComponentFactory(compiler: Compiler, metadata: Component, vm: any): Promise<ComponentFactory<any>> {
@@ -25,7 +26,7 @@ export function createComponentFactory(compiler: Compiler, metadata: Component, 
   };
   const decoratedCmp = Component(metadata)(cmpClass);
 
-  @NgModule({ imports: [CommonModule, RouterModule, AppModule], declarations: [decoratedCmp] })
+  @NgModule({ imports: [CommonModule, RouterModule, AppModule, MComponentsModule], declarations: [decoratedCmp] })
   class DynamicHtmlModule { }
 
   return compiler.compileModuleAndAllComponentsAsync(DynamicHtmlModule)
