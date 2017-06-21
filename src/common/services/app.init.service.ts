@@ -59,7 +59,7 @@ export class AppInitService {
             };
             this.saveUser(user);
             rs();
-          });
+          }, (e) => { console.error(e); rs(); });
       } else {
         rs();
       }
