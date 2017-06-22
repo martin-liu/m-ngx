@@ -12,6 +12,7 @@ import { DragulaModule } from 'ng2-dragula';
 
 import { MComponentsModule } from '../common/components/components.module';
 import { MDirectivesModule } from '../common/directives/directives.module';
+import { MPipesModule } from '../common/pipes/pipes.module';
 
 import { Config } from './app.config';
 import { AppInitService } from '../common/services/app.init.service';
