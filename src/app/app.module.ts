@@ -57,7 +57,8 @@ export function RestangularConfigFactory (RestangularProvider) {
 
     // m modules
     MComponentsModule,
-    MDirectivesModule
+    MDirectivesModule,
+    MPipesModule
 
   ],
   providers: [
