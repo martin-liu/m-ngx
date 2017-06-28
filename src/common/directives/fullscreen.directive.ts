@@ -1,14 +1,19 @@
-import { Directive, ElementRef, HostListener, Output, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, Output, EventEmitter } from '@angular/core';
 import { DomService } from '../services/dom.service';
 
 @Directive({ selector: '[m-fullscreen]' })
 export class FullscreenDirective {
+  @Input() onFullscreen: Function;
   constructor(private el: ElementRef) {}
 
   @HostListener("fullscreenEvent", ['$event']) onFullscreen(e) {
     e.stopPropagation();
 
     DomService.toggleFullscreen(this.el.nativeElement);
+
+    if (this.onFullscreen) {
+      this.onFullscreen(DomService.isFullscreen());
+    }
   }
 
   // in case user use `esc` to exit fullscreen
