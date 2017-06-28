@@ -6,7 +6,7 @@ export class FullscreenDirective {
   @Input() onFullscreen: Function;
   constructor(private el: ElementRef) {}
 
-  @HostListener("fullscreenEvent", ['$event']) onFullscreen(e) {
+  @HostListener("fullscreenEvent", ['$event']) onFullscreenEvent(e) {
     e.stopPropagation();
 
     DomService.toggleFullscreen(this.el.nativeElement);
