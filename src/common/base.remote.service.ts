@@ -4,6 +4,8 @@ import { Restangular } from 'ngx-restangular';
 import { Config } from '../app/app.config';
 import { Util } from './services/util.service';
 
+import { HashService } from './services/hash.service';
+
 @Injectable()
 export class BaseRemoteService {
   protected rest: Restangular;
@@ -22,7 +24,7 @@ export class BaseRemoteService {
     if (classMatch.length == 2) {
       className = classMatch[1];
     }
-    return `${Config.name}_${className}_${method}_${JSON.stringify(param)}`;
+    return `${Config.name}_${className}_${method}_${HashService.hash(param)}`;
   }
 
   // Session cache
