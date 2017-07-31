@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "setup": "npm install",
     "postinstall": "gulp init",
     "ng": "ng",
     "start": "ng serve -e=local",
