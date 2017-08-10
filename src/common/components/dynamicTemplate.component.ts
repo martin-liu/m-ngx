@@ -38,6 +38,7 @@ export function createComponentFactory(compiler: Compiler, metadata: Component, 
 @Directive({ selector: 'dynamic-tpl' })
 export class DynamicTemplateComponent {
   @Input() html: string;
+  @Input() style: any;
   @Input() vm: any;
   cmpRef: ComponentRef<any>;
 
@@ -53,6 +54,7 @@ export class DynamicTemplateComponent {
 
     const compMetadata = new Component({
       selector: 'dynamic-tpl',
+      styles: Array.isArray(this.style) ? this.style : [this.style],
       template: this.html,
     });
 

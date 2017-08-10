@@ -6,13 +6,14 @@ declare var require:any;
 @Component({
   selector: 'dynamic-modal',
   template: `
-     <dynamic-tpl [html]="_tpl" [vm]="vm"></dynamic-tpl>
+     <dynamic-tpl [html]="_tpl" [vm]="vm" [style]="_style"></dynamic-tpl>
 `,
   providers: [NgbActiveModal]
 })
 export class DynamicModalComponent implements OnInit {
   @Input() vm: any;
   @Input() _tpl: string;
+  @Input() _style: any;
 
   constructor(public activeModal: NgbActiveModal) {
   }
@@ -30,12 +31,13 @@ export class ModalService {
 
   constructor(private modalService: NgbModal){}
 
-  createDialog(template, scope: any = {}, options = {}) {
+  createDialog(template, scope: any = {}, options = {}, style = '') {
     const modalRef = this.modalService.open(DynamicModalComponent, options);
     scope.close = (v) => modalRef.close(v);
     scope.dismiss = (v) => modalRef.dismiss(v);
     modalRef.componentInstance.vm = scope;
     modalRef.componentInstance._tpl = template;
+    modalRef.componentInstance._style = style;
     return new Promise((rs, rj) => {
       modalRef.result.then(rs)
         .catch(() => {});
