@@ -37,7 +37,8 @@ export class BaseRemoteService {
       return this.rest.one(method).get(param).flatMap(d => Observable.fromPromise(new Promise((rs, rj) => {
         canceler.then(() => rj('request cancelled!'));
 
-        setTimeout(() => rs(d), 300);
+        // ensure it runs async
+        setTimeout(() => rs(d), 0);
       })));
     } else {
       return this.rest.one(method).get(param);
