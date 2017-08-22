@@ -73,7 +73,8 @@ export class HomeComponent extends BasePageComponent {
 
 
     // test ajax call
-    this.TestRemoteService.testMethod({a:"test"})
+    let canceler = new Promise((rs, rj) => setTimeout(rs, 100));
+    this.TestRemoteService.testMethod({a:"test"}, canceler)
       .subscribe(console.log, (e) => console.error("This ajax call fail because it's just for testing, see error info:", e));
   }
 

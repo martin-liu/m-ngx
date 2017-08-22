@@ -33,9 +33,12 @@ export class BaseRemoteService {
   }
 
   doQuery(method, param, canceler?) {
-    if (canceler && canceler.promise) {
-      let config = {timeout: canceler.promise};
-      return this.rest.one(method).withHttpConfig(config).get(param);
+    if (canceler && canceler.then) {
+      return this.rest.one(method).get(param).flatMap(d => Observable.fromPromise(new Promise((rs, rj) => {
+        canceler.then(() => rj('request cancelled!'));
+
+        setTimeout(() => rs(d), 300);
+      })));
     } else {
       return this.rest.one(method).get(param);
     }

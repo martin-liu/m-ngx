@@ -9,8 +9,8 @@ export class TestRemoteService extends BaseRemoteService {
     return Restangular.all('test');
   }
 
-  testMethod(param) {
-    return this.doQuery('test', param);
+  testMethod(param, canceler?) {
+    return this.doQuery('test', param, canceler);
   }
 
   testWithCache(param, timeout = 300) {
