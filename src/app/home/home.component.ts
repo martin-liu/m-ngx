@@ -71,7 +71,6 @@ export class HomeComponent extends BasePageComponent {
     // `ss.session` will auto save to sessionStorage
     this.ss.session.test = "haha";
 
-
     // test ajax call
     let canceler = new Promise((rs, rj) => setTimeout(rs, 100));
     this.TestRemoteService.testMethod({a:"test"}, canceler)

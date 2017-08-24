@@ -1,33 +1,38 @@
 import { TestBed, async } from '@angular/core/testing';
-import { Config } from './app.config';
+import { APP_BASE_HREF } from '@angular/common';
 
-import { AppComponent } from './app.component';
+import { AppModule } from '../app.module';
+import { HomeComponent } from './home.component';
 
-describe('AppComponent', () => {
+describe('HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
       ],
+      imports: [
+        AppModule
+      ],
+      providers: [{provide: APP_BASE_HREF, useValue : '/' }]
     }).compileComponents();
   }));
 
   it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
+    const fixture = TestBed.createComponent(HomeComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
 
-  it(`should have as title ${Config.title}`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual(Config.title);
+  it('should render modal examples', async(() => {
+    const fixture = TestBed.createComponent(HomeComponent);
+    const compiled = fixture.debugElement.nativeElement;
+    let buttonText = compiled.querySelector('button').textContent;
+    expect(buttonText).toEqual('Success');
   }));
 
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain(Config.title);
+  it(`should have persistence value`, async(() => {
+    const fixture = TestBed.createComponent(HomeComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.ss.persistence.test).toEqual({a: 1});
   }));
+
 });

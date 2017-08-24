@@ -9,7 +9,7 @@ if (Config.production) {
   enableProdMode();
 }
 
-export const appInjectorPromise: Promise<Injector> = platformBrowserDynamic().bootstrapModule(AppModule).then((module) => {
+platformBrowserDynamic().bootstrapModule(AppModule).then((module) => {
   let injector = module.injector;
   let appInit = injector.get(AppInitService);
 

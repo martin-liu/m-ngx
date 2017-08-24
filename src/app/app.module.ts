@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Injector } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { InjectorService } from '../common/services/injector.service';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularEchartsModule } from 'angular2-echarts';
@@ -15,8 +16,10 @@ import { MDirectivesModule } from '../common/directives/directives.module';
 import { MPipesModule } from '../common/pipes/pipes.module';
 
 import { Config } from './app.config';
+import { routes } from '../config/routes';
 import { AppInitService } from '../common/services/app.init.service';
 import { SharedService } from '../common/services/shared.service';
+import { DynamicTemplateComponent } from '../common/components/dynamicTemplate.component';
 import { DynamicModalComponent } from '../common/services/modal.service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -29,6 +32,7 @@ export function RestangularConfigFactory (RestangularProvider) {
 
 @NgModule({
   declarations: [
+    DynamicTemplateComponent,
     DynamicModalComponent,
     AppComponent,
     HomeComponent,
@@ -44,7 +48,7 @@ export function RestangularConfigFactory (RestangularProvider) {
     FormsModule,
     HttpModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(Config.routes),
+    RouterModule.forRoot(routes),
 
     // ng-bootstrap
     NgbModule.forRoot(),
@@ -68,4 +72,8 @@ export function RestangularConfigFactory (RestangularProvider) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private injector: Injector) {
+    InjectorService.injector = this.injector;
+  }
+}

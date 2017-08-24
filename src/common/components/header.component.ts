@@ -11,9 +11,11 @@ import { SharedService } from '../services/shared.service';
 })
 export class HeaderComponent {
   Config = Config;
-  routes = Config.routes.filter(d => d.data && d.data.name)
+  routes;
 
   @Input() mailto: string;
   @Input() wiki: string;
-  constructor(private router: Router, private ss: SharedService) {}
+  constructor(private router: Router, private ss: SharedService) {
+    this.routes = router.config.filter(d => d.data && d.data.name)
+  }
 }

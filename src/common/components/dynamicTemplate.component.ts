@@ -3,6 +3,7 @@ import {
   Directive,
   NgModule,
   Input,
+  NgModuleRef,
   ViewContainerRef,
   Compiler,
   ComponentFactory,
@@ -14,9 +15,8 @@ import {
 import { RouterModule }  from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MComponentsModule } from './components.module';
-import { AppModule } from '../../app/app.module';
 
-export function createComponentFactory(compiler: Compiler, metadata: Component, vm: any): Promise<ComponentFactory<any>> {
+export function createComponentFactory(currentModule: any, compiler: Compiler, metadata: Component, vm: any): Promise<ComponentFactory<any>> {
   const cmpClass = class DynamicTemplateComponent {
     ngOnInit() {
       for (let k in vm) {
@@ -26,7 +26,7 @@ export function createComponentFactory(compiler: Compiler, metadata: Component, 
   };
   const decoratedCmp = Component(metadata)(cmpClass);
 
-  @NgModule({ imports: [CommonModule, RouterModule, AppModule, MComponentsModule], declarations: [decoratedCmp] })
+  @NgModule({ imports: [currentModule, CommonModule, RouterModule, MComponentsModule], declarations: [decoratedCmp] })
   class DynamicHtmlModule { }
 
   return compiler.compileModuleAndAllComponentsAsync(DynamicHtmlModule)
@@ -42,7 +42,7 @@ export class DynamicTemplateComponent {
   @Input() vm: any;
   cmpRef: ComponentRef<any>;
 
-  constructor(private vcRef: ViewContainerRef, private compiler: Compiler) { }
+  constructor(private currentModule: NgModuleRef<any>, private vcRef: ViewContainerRef, private compiler: Compiler) { }
 
   ngOnChanges() {
     const html = this.html;
@@ -58,7 +58,7 @@ export class DynamicTemplateComponent {
       template: this.html,
     });
 
-    createComponentFactory(this.compiler, compMetadata, this.vm)
+    createComponentFactory(this.currentModule.instance.constructor, this.compiler, compMetadata, this.vm)
       .then(factory => {
         const injector = ReflectiveInjector.fromResolvedProviders([], this.vcRef.parentInjector);
         this.cmpRef = this.vcRef.createComponent(factory, 0, injector, []);
