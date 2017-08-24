@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { InjectorService } from '../common/services/injector.service';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AngularEchartsModule } from 'angular2-echarts';
+import { AngularEchartsModule } from 'ngx-echarts';
 import { RestangularModule } from 'ngx-restangular';
 import { DragulaModule } from 'ng2-dragula';
 
