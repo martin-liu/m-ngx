@@ -51,7 +51,7 @@ export class BaseRemoteService {
     }, timeout));
   }
 
-  mockResult(data, time = 1000){
+  mockResult<T>(data: T, time = 1000): Observable<T> {
     return Observable.fromPromise(new Promise((rs, rj) => {
       setTimeout(() => rs(data), time);
     }));
