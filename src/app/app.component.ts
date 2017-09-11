@@ -19,7 +19,7 @@ import { SharedService } from '../common/services/shared.service';
   providers: [Title, SharedService]
 })
 export class AppComponent {
-  public constructor(private router: Router, private activatedRoute: ActivatedRoute, private titleService: Title, private ss: SharedService) {
+  public constructor(private router: Router, private activatedRoute: ActivatedRoute, private titleService: Title, public ss: SharedService) {
     titleService.setTitle(Config.title);
   }
 
