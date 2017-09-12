@@ -11,7 +11,7 @@
     "build-dev": "ng build --dev --output-hashing=all && gulp build",
     "build-prod": "ng build --prod --aot=false && gulp build",
     "test": "ng test -cc --tags",
-    "cover": "ng test -cc -sr --browsers=ChromiumHeadless",
+    "cover": "ng test -cc -sr --browsers=headless",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
