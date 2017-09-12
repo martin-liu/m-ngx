@@ -11,7 +11,7 @@
     "build-dev": "ng build --dev --output-hashing=all && gulp build",
     "build-prod": "ng build --prod --aot=false && gulp build",
     "test": "ng test -cc --tags",
-    "cover": "ng test -cc -sr",
+    "cover": "ng test -cc -sr --browsers=ChromiumHeadless",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -61,6 +61,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "minimist": "^1.2.0",
     "protractor": "^5.1.2",
+    "puppeteer": "^0.10.2",
     "ts-node": "^3.3.0",
     "tslint": "^5.6.0",
     "typescript": "^2.4.2"
