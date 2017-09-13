@@ -21,6 +21,7 @@ module.exports = function (config) {
       require('karma-coverage-istanbul-reporter'),
       require('@angular/cli/plugins/karma')
     ],
+    browserNoActivityTimeout: 30000,
     client:{
       args: [tags],
       clearContext: false // leave Jasmine Spec Runner output visible in browser
