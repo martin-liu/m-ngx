@@ -1,52 +1,37 @@
 import { Component, Input, Injectable, OnInit } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-declare var require:any;
+@Component({
+  selector: 'alert-modal',
+  templateUrl: '../partials/alert.html'
+})
+export class AlertModalComponent {
+  @Input() type: string;
+  @Input() message: string;
+  @Input() class: string;
+  @Input() close: Function;
+  @Input() dismiss: Function;
+}
 
 @Component({
-  selector: 'dynamic-modal',
-  template: `
-     <dynamic-tpl [html]="_tpl" [vm]="vm" [style]="_style"></dynamic-tpl>
-`,
-  providers: [NgbActiveModal]
+  selector: 'error-modal',
+  templateUrl: '../partials/error_handler.html'
 })
-export class DynamicModalComponent implements OnInit {
-  @Input() vm: any;
-  @Input() _tpl: string;
-  @Input() _style: any;
-
-  constructor(public activeModal: NgbActiveModal) {
-  }
-
-  ngOnInit() {
-    for (let k in this.vm) {
-      this[k] = this.vm[k]
-    }
-  }
+export class ErrorHandlerModalComponent {
+  @Input() message: string;
+  @Input() close: Function;
+  @Input() dismiss: Function;
 }
 
 @Injectable()
 export class ModalService {
-  private alertTpl = require('../partials/alert.html');
 
   constructor(private modalService: NgbModal){}
 
-  createDialog(template, scope: any = {}, options = {}, style = '') {
-    const modalRef = this.modalService.open(DynamicModalComponent, options);
-    scope.close = (v) => modalRef.close(v);
-    scope.dismiss = (v) => modalRef.dismiss(v);
-    modalRef.componentInstance.vm = scope;
-    modalRef.componentInstance._tpl = template;
-    modalRef.componentInstance._style = style;
-    return new Promise((rs, rj) => {
-      modalRef.result.then(rs)
-        .catch(() => {});
-    });
-  }
-
   alert(message, type) {
-    let mclass, scope;
-    mclass = (function() {
+    const modalRef = this.modalService.open(AlertModalComponent, {});
+
+    let mclass = (function() {
       switch (type) {
       case 'success':
         return 'alert-success';
@@ -56,12 +41,17 @@ export class ModalService {
         return 'alert-warning';
       }
     })();
-    scope = {
-      message: message,
-      type: type,
-      "class": mclass
-    };
-    return this.createDialog(this.alertTpl, scope);
+
+    modalRef.componentInstance.type = type;
+    modalRef.componentInstance.message = message;
+    modalRef.componentInstance.class = mclass;
+    modalRef.componentInstance.close = (v) => modalRef.close(v);
+    modalRef.componentInstance.dismiss = (v) => modalRef.dismiss(v);
+
+    return new Promise((rs, rj) => {
+      modalRef.result.then(rs)
+        .catch(() => {});
+    });
   }
 
   success(message) {
@@ -77,10 +67,13 @@ export class ModalService {
   }
 
   error(message) {
-    let tplErrorHandler;
-    tplErrorHandler = require('../partials/error_handler.html');
-    return this.createDialog(tplErrorHandler, {
-      message: message
-    }, function() {});
+    const modalRef = this.modalService.open(ErrorHandlerModalComponent, {});
+    modalRef.componentInstance.message = message;
+    modalRef.componentInstance.close = (v) => modalRef.close(v);
+    modalRef.componentInstance.dismiss = (v) => modalRef.dismiss(v);
+    return new Promise((rs, rj) => {
+      modalRef.result.then(rs)
+        .catch(() => {});
+    });
   }
 }

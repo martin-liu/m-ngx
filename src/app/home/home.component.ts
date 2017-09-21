@@ -5,6 +5,8 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { ModalService } from '../../common/services/modal.service';
 import { BasePageComponent } from '../../common/base.page.component';
 import { TestRemoteService } from '../services/remote/test.remote.service';
+import { AboutComponent } from '../about/about.component';
+import { NotFoundComponent } from '../notfound/notfound.component';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +15,9 @@ import { TestRemoteService } from '../services/remote/test.remote.service';
   providers: [ModalService, TestRemoteService]
 })
 export class HomeComponent extends BasePageComponent {
+  aboutComponentType = AboutComponent;
+  notFountComponentType = NotFoundComponent;
+
   public constructor(private dragulaService: DragulaService, private modalService: ModalService, private TestRemoteService: TestRemoteService) {
     super()
 

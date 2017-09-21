@@ -1,10 +1,10 @@
-<div class="{{ animate }}">
+<div class="animate">
     <div class="modal-header">
         <h4>Request Error</h4>
     </div>
     <div class="modal-body">
         <p class="alert alert-danger">
-            {{ message ? message : dict.get('unkownError') }}
+            {{ message ? message : 'unkownError' }}
         </p>
     </div>
     <div class="modal-footer">

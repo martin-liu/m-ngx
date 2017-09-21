@@ -19,8 +19,8 @@ import { Config } from './app.config';
 import { routes } from '../config/routes';
 import { AppInitService } from '../common/services/app.init.service';
 import { SharedService } from '../common/services/shared.service';
-import { DynamicTemplateComponent } from '../common/components/dynamicTemplate.component';
-import { DynamicModalComponent } from '../common/services/modal.service';
+import { DynamicRenderComponent } from '../common/components/dynamicRender.component';
+import { AlertModalComponent, ErrorHandlerModalComponent } from '../common/services/modal.service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
@@ -30,18 +30,22 @@ export function RestangularConfigFactory (RestangularProvider) {
   RestangularProvider.setBaseUrl(Config.uri.api);
 }
 
+const declarations = [
+  DynamicRenderComponent,
+  AlertModalComponent,
+  ErrorHandlerModalComponent,
+  AppComponent,
+  HomeComponent,
+  AboutComponent,
+  NotFoundComponent
+];
+
 @NgModule({
-  declarations: [
-    DynamicTemplateComponent,
-    DynamicModalComponent,
-    AppComponent,
-    HomeComponent,
-    AboutComponent,
-    NotFoundComponent
-  ],
-  // for dynamic create
+  declarations,
+  exports: declarations,
   entryComponents: [
-    DynamicModalComponent
+    AlertModalComponent,
+    ErrorHandlerModalComponent
   ],
   imports: [
     BrowserModule,
