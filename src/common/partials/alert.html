@@ -1,8 +1,6 @@
 <div>
   <div class="modal-header" style="padding: 10px">
-    <h4 *ngIf="type == 'success'">Success!</h4>
-    <h4 *ngIf="type == 'fail'">Fail!</h4>
-    <h4 *ngIf="type == 'confirm'">Confirm</h4>
+    <h4>{{title}}</h4>
   </div>
   <div class="modal-body">
     <p class="alert {{class}}" [innerHTML]="message"></p>

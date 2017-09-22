@@ -6,6 +6,7 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: '../partials/alert.html'
 })
 export class AlertModalComponent {
+  @Input() title: string;
   @Input() type: string;
   @Input() message: string;
   @Input() class: string;
@@ -28,7 +29,7 @@ export class ModalService {
 
   constructor(private modalService: NgbModal){}
 
-  alert(message, type) {
+  alert(message, type, title) {
     const modalRef = this.modalService.open(AlertModalComponent, {});
 
     let mclass = (function() {
@@ -42,6 +43,7 @@ export class ModalService {
       }
     })();
 
+    modalRef.componentInstance.title = title;
     modalRef.componentInstance.type = type;
     modalRef.componentInstance.message = message;
     modalRef.componentInstance.class = mclass;
@@ -54,16 +56,16 @@ export class ModalService {
     });
   }
 
-  success(message) {
-    return this.alert(message, 'success');
+  success(message, title = 'Success!') {
+    return this.alert(message, 'success', title);
   }
 
-  fail(message) {
-    return this.alert(message, 'fail');
+  fail(message, title = 'Fail!') {
+    return this.alert(message, 'fail', title);
   }
 
-  confirm(message) {
-    return this.alert(message, 'confirm');
+  confirm(message, title = 'Confirm!') {
+    return this.alert(message, 'confirm', title);
   }
 
   error(message) {
