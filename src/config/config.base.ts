@@ -42,6 +42,11 @@ export const Config = {
     }
   },
 
+  raven: {
+    enabled: false,
+    url: ''
+  },
+
   urlHtml5Mode: true,
   version: "0.0.1"
 };

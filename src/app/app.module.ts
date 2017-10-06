@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Injector } from '@angular/core';
+import { NgModule, Injector, ErrorHandler } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -26,8 +26,35 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './notfound/notfound.component';
 
+// Raven
+import * as Raven from 'raven-js';
+let raven;
+if (Config.raven && Config.raven.enabled && Config.raven.url) {
+  raven = Raven
+    .config(Config.raven.url)
+    .install();
+}
+export class RavenErrorHandler implements ErrorHandler {
+  handleError(err:any) : void {
+    err = err.originalError || err;
+    if (raven) {
+      raven.captureException(err);
+    }
+    console.error(err);
+  }
+}
+
 export function RestangularConfigFactory (RestangularProvider) {
   RestangularProvider.setBaseUrl(Config.uri.api);
+  RestangularProvider.addErrorInterceptor((response, subject, responseHandler) => {
+    if (response.status >= 500) {
+      // raven integration for ajax call failures
+      if (raven) {
+        raven.captureException(response);
+      }
+    }
+    return true; // error not handled
+  });
 }
 
 const declarations = [
@@ -71,6 +98,10 @@ const declarations = [
 
   ],
   providers: [
+    {
+      provide: ErrorHandler,
+      useClass: RavenErrorHandler
+    },
     AppInitService,
     SharedService
   ],
